@@ -14,7 +14,7 @@ const {admin, student}= require("../auth")
 
 app.get("/",admin, async (req, res) =>{
     let result = await pembayaran.findAll({
-        where:{id_petugas:!null},
+      
         include: [ "petugas",
             {
                 model: models.siswa,
@@ -26,10 +26,11 @@ app.get("/",admin, async (req, res) =>{
     
     let data = []
     result.forEach(e=>{
-        if(e.petugas!==null){
+        if(e.id_petugas!==null){
+          
             data.push({nisn:e.siswa.nisn,nama_petugas:e.petugas.nama_petugas,nama_siswa:e.siswa.nama,tgl_bayar:e.tgl_bayar,spp_bulan:e.bulan_bayar,total_bayar:e.jumlah_bayar,status:e.id_petugas===null?"Belum bayar":"Lunas",valid:new Date(e.updatedAt).toString()})
-        }
-          })
+        }  
+        })
     res.json(data)
 })
 app.get("/list",admin, async (req, res) =>{

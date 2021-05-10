@@ -11,7 +11,7 @@ const admin = (req, res, next) => {
         res.status(401).json({ message: "Unauthorized"})
     }else{
         jwt.verify(token, SECRET_KEY[0], jwtHeader, (error,user) => {
-            if((req.baseUrl==="/store/api/v1/spp"||req.baseUrl==="/store/api/v1/spp/pembayaran/:id_pembayaran")&&(req.baseUrl==="/store/api/v1/spp"&&req.method!=="POST")){
+            if((req.baseUrl==="/store/api/v1/spp"||(req.method==="POST"&&req.baseUrl==="/store/api/v1/spp/pembayaran/:id_pembayaran/:nisn"))){
                 if (error) {
                     res
                     .status(401)

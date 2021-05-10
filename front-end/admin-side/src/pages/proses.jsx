@@ -31,7 +31,9 @@ export default class Proses extends React.Component{
         let url = base_url+"/spp/proses"
         axios.get(url,this.headerConfig()).then(r=>{
             axios.get(`${base_url}/spp`,this.headerConfig()).then(re=>{
-                this.setState({proses:r.data,bulan:r.data[0]!==undefined?r.data[0].spp_bulan:re.data.reverse()[0].spp_bulan})
+                console.log(r.data.length);
+                this.setState({proses:r.data,bulan:r.data.length===0?null:r.data[0]!==undefined?r.data[0].spp_bulan:re.data.reverse()[0].spp_bulan})
+            console.log(this.state.bulan);
             })
         }).catch(e=>{
             if(e.response){
@@ -123,7 +125,7 @@ axios.post(url,data,this.headerConfig()).then(r=>{
                                     </tbody>
                                 </table> 
 {
-this.state.bulan===new Date("2021-05-04T02:00:49.000Z").toString().split(" ")[1]?null:(<button className="btn btn-success" onClick={()=>this.Add()}>Add Payment</button>)
+this.state.bulan===null?null:(<button className="btn btn-success" onClick={()=>this.Add()}>Add Payment</button>)
 }
 <div className="modal" id="modal_proses">
                             <div className="modal-dialog">
